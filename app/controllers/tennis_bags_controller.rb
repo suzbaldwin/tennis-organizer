@@ -35,5 +35,14 @@ class TennisBagsController < ApplicationController
     erb :'tennis_bags/show'
   end
 
+  post "/tennis_bags" do
+      redirect_if_not_logged_in
+
+      unless TennisBag.valid_params?(params)
+        redirect "/tennis_bags/new?error=invalid tennis bag"
+      end
+      TennisBag.create(params)
+      redirect "/tennis_bags"
+    end
 
 end
