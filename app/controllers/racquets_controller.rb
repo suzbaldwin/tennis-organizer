@@ -35,5 +35,12 @@ class RacquetsController < ApplicationController
     erb :'racquets/show'
   end
 
-
+  post "/racquets" do
+    redirect_if_not_logged_in
+    unless Racquet.valid_params?(params)
+      redirect "/racquets/new?error=invalid racquet"
+    end
+    Racquet.create(params)
+    redirect "/racquets"
+  end
 end
