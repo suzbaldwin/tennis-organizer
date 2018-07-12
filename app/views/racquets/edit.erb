@@ -1,0 +1,18 @@
+<h1>Edit <%= @racquet.name %></h1>
+
+<form action="/racquets/<%=@racquet.id %>" method="POST">
+  <label> Racquet Name </label>
+  <input type="text" name="name" value="<%=@racquet.name %>"> </br>
+
+  <label> Racquet Manufacturer </label>
+  <input type="text" name="manufacturer" value="<%=@racquet.manufacturer%>"> </br>
+
+  <label> Which Tennis Bag does this belong in? </label>
+  <select name="tennis_bag_id">
+    <% current_user.tennis_bags.each do |tennis_bag| %>
+      <option value=<%=tennis_bag.id %> <%= "selected" if tennis_bag.id==@racquet.tennis_bag.id %> ><%= tennis_bag.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Update">
+</form>
