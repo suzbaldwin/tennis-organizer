@@ -6,4 +6,10 @@ class RacquetsController < ApplicationController
       erb :'racquets/index'
     end
 
+    get "/racquets/new" do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
+    erb :'racquets/new'
+  end
+
 end
