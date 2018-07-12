@@ -1,0 +1,4 @@
+class RacquetsController < ApplicationController
+
+
+end

@@ -1,0 +1,6 @@
+class TennisBagsController < ApplicationController
+
+
+
+
+end
