@@ -1,0 +1,12 @@
+<%= @tennis_bag.name %><br />
+  <%= @tennis_bag.capacity %> <br />
+
+  <h2>Racquets</h2>
+  <ul>
+  <% @tennis_bag.racquets.each do |racquet| %>
+    <li><a href="/racquets/<%=racquet.id%>"><%= racquet.name %></a></li>
+  <% end%>
+  </ul>
+  <a href="/tennis_bags/<%=@tennis_bag.id%>/edit">Edit</a>
+  <br />
+  <br />
