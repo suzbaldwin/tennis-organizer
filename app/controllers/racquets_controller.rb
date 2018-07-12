@@ -19,4 +19,21 @@ class RacquetsController < ApplicationController
     erb :'racquets/edit'
   end
 
+  post "/racquets/:id" do
+   redirect_if_not_logged_in
+   @racquet = Racquet.find(params[:id])
+   unless Racquet.valid_params?(params)
+     redirect "/racquets/#{@racquet.id}/edit?error=invalid racquet club"
+   end
+   @racquet.update(params.select{|k|k=="name" || k=="manufacturer" || k=="tennis_bag_id"})
+   redirect "/racquets/#{@racquet.id}"
+ end
+
+ get "/racquets/:id" do
+    redirect_if_not_logged_in
+    @racquet = Racquet.find(params[:id])
+    erb :'racquets/show'
+  end
+
+
 end
