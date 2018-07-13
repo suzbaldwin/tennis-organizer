@@ -7,7 +7,7 @@
   <label> Racquet Manufacturer </label>
   <input type="text" name="manufacturer"> </br>
 
-  <label> Which Tennis Bag does this belong in? </label>
+  <label> Which Tennis Bag does this racquet belong in? </label>
   <select name="tennis_bag_id">
     <% current_user.tennis_bags.each do |tennis_bag| %>
       <option value=<%=tennis_bag.id %>><%= tennis_bag.name %></option>

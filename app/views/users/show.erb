@@ -1,4 +1,4 @@
-<p> Here are your Tennis Bags, <%= @user.username %>
+<p> Here is your Tennis Bag, <%= @user.username %>
 <% @user.tennis_bags.each do |tennis_bag| %>
   <ul>
     <li><a href="/tennis_bags/<%=tennis_bag.id%>"><%= tennis_bag.name %></a></li>
