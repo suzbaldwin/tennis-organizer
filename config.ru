@@ -6,8 +6,8 @@ end
 
 
 
-# use Rack::MethodOverride
-# use TennisBagsController
-# use RacquetsController
-# use UsersController
+use Rack::MethodOverride
+use TennisBagsController
+use RacquetsController
+use UsersController
 run ApplicationController

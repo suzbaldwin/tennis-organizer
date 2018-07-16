@@ -5,7 +5,6 @@ class TennisBagsController < ApplicationController
       @user = current_user
       @tennis_bags = Tennis_Bag.all
       erb :'tennis_bags/index'
-    end
   else
     redirect '/login'
   end
@@ -15,7 +14,6 @@ get "/tennis_bags/new" do
   if logged_in?
     @user = current_user
     erb :'tennis_bags/new'
-  end
 else
   redirect '/login'
 end
@@ -23,8 +21,8 @@ end
 
 post '/tennis_bags' do
   if !params[:capacity][:name].empty?
-    @tennis_bag = Tennis_Bag.create(name: params[:name] capacity: params[:capacity], user: current_user)
-  end
+    @tennis_bag = Tennis_Bag.create(name: params[:name], capacity: params[:capacity], user: current_user)
+
   redirect '/tennis_bags'
 else
   redirect to '/tennis_bags/new'
@@ -36,7 +34,7 @@ get "/tennis_bags/:id" do
     @user = current_user
     @tennis_bag = Tennis_Bag.find(params[:id])
     erb :'tennis_bags/show'
-  end
+
 else
   redirect to '/login'
 end
@@ -56,7 +54,7 @@ post "/tennis_bags/:id" do
   @tennis_bag = Tennis_Bag.find_by_id(params[:id])
 
     if !params[:name][:capacity].empty?
-      @tennis_bag.update(:name => params[:name] :capacity => params[:capacity])
+      @tennis_bag.update(:name => params[:name], :capacity => params[:capacity])
       @tennis_bag.save
       redirect "tennis_bags/#{params[:id]}"
     else

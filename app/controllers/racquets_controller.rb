@@ -6,12 +6,12 @@ class RacquetsController < ApplicationController
       @racquets = Racquet.all
       erb :'racquets/index'
     end
-
-    get "/racquets/new" do
-      if logged_in?
-    erb :'racquets/new'
   end
-
+  get "/racquets/new" do
+    if logged_in?
+      erb :'racquets/new'
+    end
+  end
   get "/racquets/:id/edit" do
     redirect_if_not_logged_in
 
@@ -20,39 +20,31 @@ class RacquetsController < ApplicationController
   end
 
   post "/racquets/:id" do
-   redirect_if_not_logged_in
-   @racquet = Racquet.find(params[:id])
-   unless Racquet.valid_params?(params)
-     redirect "/racquets/#{@racquet.id}/edit?error=invalid racquet club"
-   end
-   @racquet.update(params.select{|k|k=="name" || k=="manufacturer" || k=="tennis_bag_id"})
-   redirect "/racquets/#{@racquet.id}"
- end
+    redirect_if_not_logged_in
+    @racquet = Racquet.find(params[:id])
+    unless Racquet.valid_params?(params)
+      redirect "/racquets/#{@racquet.id}/edit?error=invalid racquet club"
+    end
+    @racquet.update(params.select{|k|k=="name" || k=="manufacturer" || k=="tennis_bag_id"})
+    redirect "/racquets/#{@racquet.id}"
+  end
 
- get "/racquets/:id" do
-   if logged_in?
-     @racquet = Racquet.find(params[:id])
-     erb :'racquets/show'
-   end
- else
-   redirect to '/login'
- end
+  get "/racquets/:id" do
+    if logged_in?
+      @racquet = Racquet.find(params[:id])
+      erb :'racquets/show'
+
+    else
+      redirect to '/login'
+    end
   end
 
   post "/racquets" do
-
-      redirect "/racquets/new?error=invalid racquet"
+    if !params[:manufacturer][:name].empty?
+      @racquet = Racquet.create(name: params[:name], manufacturer: params[:manufacturer])
+      redirect '/racquets'
+    else
+      redirect to '/racquets/new'
     end
-    Racquet.create(params)
-    redirect "/racquets"
   end
-end
-if !params[:manufacturer][:name].empty?
-  @racquet = Racquet.create(name: params[:name] manufacturer: params[:manufacturer])
-end
-redirect '/racquets'
-else
-redirect to '/racquets/new'
-end
-end
 end
