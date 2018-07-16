@@ -3,56 +3,67 @@ class TennisBagsController < ApplicationController
   get "/tennis_bags" do
     if logged_in?
       @user = current_user
-      @tennis_bags = TennisBag.all
-    erb :'tennis_bags/index'
+      @tennis_bags = Tennis_Bag.all
+      erb :'tennis_bags/index'
     end
-    else
-      redirect '/login'
-    end
+  else
+    redirect '/login'
   end
+end
 
-  get "/tennis_bags/new" do
-     if logged_in?
-       @user = current_user
-       @error_message = params[:error]
-     erb :'tennis_bags/new'
-   end
-    else
-      redirect '/login'
-    end
+get "/tennis_bags/new" do
+  if logged_in?
+    @user = current_user
+    erb :'tennis_bags/new'
   end
+else
+  redirect '/login'
+end
+end
 
-   get "/tennis_bags/:id/edit" do
-    redirect_if_not_logged_in
-    @error_message = params[:error]
-    @tennis_bag = TennisBag.find(params[:id])
-    erb :'tennis_bags/edit'
+post '/tennis_bags' do
+  if !params[:capacity][:name].empty?
+    @tennis_bag = Tennis_Bag.create(name: params[:name] capacity: params[:capacity], user: current_user)
   end
+  redirect '/tennis_bags'
+else
+  redirect to '/tennis_bags/new'
+end
+end
 
-  post "/tennis_bags/:id" do
-     redirect_if_not_logged_in
-     @tennis_bag = TennisBag.find(params[:id])
-     unless TennisBag.valid_params?(params)
-       redirect "/tennis_bags/#{@tennis_bag.id}/edit?error=invalid tennis bag"
-     end
-     @tennis_bag.update(params.select{|k|k=="name" || k=="capacity"})
-     redirect "/tennis_bags/#{@tennis_bag.id}"
-   end
-
-   get "/tennis_bags/:id" do
-    redirect_if_not_logged_in
-    @tennis_bag = TennisBag.find(params[:id])
+get "/tennis_bags/:id" do
+  if logged_in?
+    @user = current_user
+    @tennis_bag = Tennis_Bag.find(params[:id])
     erb :'tennis_bags/show'
   end
+else
+  redirect to '/login'
+end
+end
 
-  post "/tennis_bags" do
-      redirect_if_not_logged_in
+get "/tennis_bags/:id/edit" do
 
-      unless TennisBag.valid_params?(params)
-        redirect "/tennis_bags/new?error=invalid tennis bag"
-      end
-      TennisBag.create(params)
-      redirect "/tennis_bags"
+  @tennis_bag = Tennis_Bag.find(params[:id])
+    if logged_in? && @Tennis_Bag.user == current_user
+      erb :'tennis_bags/edit'
+    else
+      redirect '/login'
     end
+  end
+
+post "/tennis_bags/:id" do
+  @tennis_bag = Tennis_Bag.find_by_id(params[:id])
+
+    if !params[:name][:capacity].empty?
+      @tennis_bag.update(:name => params[:name] :capacity => params[:capacity])
+      @tennis_bag.save
+      redirect "tennis_bags/#{params[:id]}"
+    else
+      redirect "tennis_bags/#{params[:id]}/edit"
+    end
+  end
+
+
 
 end
