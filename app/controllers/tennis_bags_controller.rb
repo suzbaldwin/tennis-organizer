@@ -1,16 +1,26 @@
 class TennisBagsController < ApplicationController
 
   get "/tennis_bags" do
-    redirect_if_not_logged_in
-    @tennis_bags = TennisBag.all
+    if logged_in?
+      @user = current_user
+      @tennis_bags = TennisBag.all
     erb :'tennis_bags/index'
+    end
+    else
+      redirect '/login'
+    end
   end
 
   get "/tennis_bags/new" do
-     redirect_if_not_logged_in
-     @error_message = params[:error]
+     if logged_in?
+       @user = current_user
+       @error_message = params[:error]
      erb :'tennis_bags/new'
    end
+    else
+      redirect '/login'
+    end
+  end
 
    get "/tennis_bags/:id/edit" do
     redirect_if_not_logged_in
