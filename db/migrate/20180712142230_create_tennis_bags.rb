@@ -4,7 +4,7 @@ class CreateTennisBags < ActiveRecord::Migration
       t.string :name
       t.integer :capacity
       t.integer :user_id
-      t.integer :tennis_bag_id
+      
     end
   end
 end

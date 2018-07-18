@@ -20,6 +20,7 @@ end
 end
 
 post '/tennis_bags' do
+  binding.pry
   if !params[:capacity][:name].empty?
     @tennis_bag = TennisBag.create(name: params[:name], capacity: params[:capacity], user: current_user)
 
