@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if !session[:user_id]
+    # if !session[:user_id]
       erb :'users/new'
-    else
-      redirect to '/racquets'
-    end
+    # else
+    #   redirect to '/racquets'
+    # end
   end
 
   post '/signup' do
@@ -13,13 +13,14 @@ class UsersController < ApplicationController
       redirect to '/signup'
     else
       @user = User.create(:username => params[:username], :password => params[:password])
+      binding.pry
       session[:user_id] = @user.id
       redirect '/tennis_bags'
     end
   end
 
   get '/login' do
-    @error_message = params[:error]
+
     if !session[:user_id]
       erb :'users/login'
     else
