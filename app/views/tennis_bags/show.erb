@@ -3,7 +3,7 @@
 
   <h2>Racquets</h2>
   <ul>
-  <% @tennis_bag.racquets.each do |racquet| %>
+  <% @tennis_bag.each do |racquet| %>
     <li><a href="/racquets/<%=racquet.id%>"><%= racquet.name %></a></li>
   <% end%>
   </ul>
