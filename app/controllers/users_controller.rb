@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       redirect to '/signup'
     else
       @user = User.create(:username => params[:username], :password => params[:password])
-      binding.pry
+
       session[:user_id] = @user.id
       redirect '/tennis_bags'
     end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     user = User.find_by(:username => params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect "/tennis_bags"
+      redirect "/tennis_bags/new"
     else
       redirect to '/signup'
     end

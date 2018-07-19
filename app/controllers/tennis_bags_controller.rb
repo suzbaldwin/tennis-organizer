@@ -3,7 +3,7 @@ class TennisBagsController < ApplicationController
   get "/tennis_bags" do
     # binding.pry
     if logged_in?
-      # @user = current_user
+      @user = current_user
 
       @tennis_bags = TennisBag.all
       erb :'tennis_bags/index'
@@ -45,17 +45,16 @@ end
 get "/tennis_bags/:id/edit" do
 
   @tennis_bag = TennisBag.find(params[:id])
-    if logged_in? && @tennis_Bag.user == current_user
+    # if logged_in? && @tennis_Bag.user == current_user
       erb :'tennis_bags/edit'
-    else
-      redirect '/login'
-    end
+
+
   end
 
 post "/tennis_bags/:id" do
   @tennis_bag = TennisBag.find_by_id(params[:id])
 
-    if !params[:name][:capacity].empty?
+    if !params[:name].empty? || !params[:capacity].empty?
       @tennis_bag.update(:name => params[:name], :capacity => params[:capacity])
       @tennis_bag.save
       redirect "tennis_bags/#{params[:id]}"
