@@ -3,7 +3,7 @@ class TennisBagsController < ApplicationController
   get "/tennis_bags" do
     # binding.pry
     if logged_in?
-      @user = current_user
+      # @user = current_user
 
       @tennis_bags = TennisBag.all
       erb :'tennis_bags/index'
@@ -22,8 +22,6 @@ end
 end
 
 post '/tennis_bags' do
-  binding.pry
-
   if !params[:capacity].empty? || !params[:name].empty?
     @tennis_bag = TennisBag.create(name: params[:name], capacity: params[:capacity], user_id: current_user.id)
 
