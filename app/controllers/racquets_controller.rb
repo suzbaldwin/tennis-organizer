@@ -20,14 +20,18 @@ class RacquetsController < ApplicationController
   end
 
   post "/racquets/:id" do
-    redirect_if_not_logged_in
-    @racquet = Racquet.find(params[:id])
-    unless Racquet.valid_params?(params)
-      redirect "/racquets/#{@racquet.id}/edit?error=invalid racquet club"
+
+    @racquet = Racquet.find_by_id(params[:id])
+
+      if !params[:content].empty? || !params[:manufacturer].empty?
+        @racquet.update(:name => params[:name]) || @racquet.update(:manufacturer => params[:manufacturer])
+        @racquet.save
+        redirect "racquets/#{params[:id]}"
+      else
+        redirect "racquets/#{params[:id]}/edit"
+      end
     end
-    @racquet.update(params.select{|k|k=="name" || k=="manufacturer" || k=="tennis_bag_id"})
-    redirect "/racquets/#{@racquet.id}"
-  end
+
 
   get "/racquets/:id" do
     if logged_in?
@@ -40,7 +44,7 @@ class RacquetsController < ApplicationController
   end
 
   post "/racquets" do
-    if !params[:manufacturer][:name].empty?
+    if !params[:name].empty? || !params[:manufacturer].empty?
       @racquet = Racquet.create(name: params[:name], manufacturer: params[:manufacturer])
       redirect '/racquets'
     else
