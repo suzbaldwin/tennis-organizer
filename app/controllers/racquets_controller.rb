@@ -13,12 +13,12 @@ class RacquetsController < ApplicationController
     end
   end
   get "/racquets/:id/edit" do
-    redirect_if_not_logged_in
+    if logged_in?
 
     @racquet = Racquet.find(params[:id])
     erb :'racquets/edit'
   end
-
+end
   patch "/racquets/:id" do
 
     @racquet = Racquet.find_by_id(params[:id])

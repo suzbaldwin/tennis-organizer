@@ -1,16 +1,19 @@
-<%= @tennis_bag.name %><br />
-  <%= @tennis_bag.capacity %> <br />
-
-  <h2> Create New Racquet </h2>
+Tennis Bag Name:  <%= @tennis_bag.name %><br />
+  Tennis Bag Capacity:  <%= @tennis_bag.capacity %> <br />
+  <br />
+  <br />
+  <h4> Create New Racquet </h4>
   <form action="/racquets" method="post">
     <label> Racquet Name </label>
     <input type="text" name="name"> </br>
-
+    <br />
+    <br />
     <label> Racquet Manufacturer </label>
     <input type="text" name="manufacturer"> </br>
     <input type="hidden" name="tennis_bag_id" value="<%=@tennis_bag.id%>">
     <input type="submit" value="Create">
-
+    <br />
+    <br />
   </form>
   <h3>Racquets</h3>
   <ul>

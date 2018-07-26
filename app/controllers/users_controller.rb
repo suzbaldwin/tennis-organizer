@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     if !session[:user_id]
       erb :'users/login'
     else
-      redirect '/tennis_bags'
+      redirect '/tennis_bags/new'
     end
   end
 
