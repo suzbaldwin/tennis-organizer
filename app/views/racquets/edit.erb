@@ -1,6 +1,7 @@
 <h1>Edit <%= @racquet.name %></h1>
 
-<form action="/racquets/<%=@racquet.id %>" method="POST">
+<form action="/racquets/<%=@racquet.id %>" method="PATCH">
+  <input type="hidden" name="_method" value="patch">
   <label> Racquet Name </label>
   <input type="text" name="name" value="<%=@racquet.name %>"> </br>
 

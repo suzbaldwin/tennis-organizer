@@ -19,7 +19,7 @@ class RacquetsController < ApplicationController
     erb :'racquets/edit'
   end
 
-  post "/racquets/:id" do
+  patch "/racquets/:id" do
 
     @racquet = Racquet.find_by_id(params[:id])
 

@@ -4,6 +4,7 @@ class CreateRacquets < ActiveRecord::Migration
       t.string :name
       t.string :manufacturer
       t.integer :user_id
+      t.integer :tennis_bag_id
     end
   end
 end

@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20180712142248) do
     t.string  "name"
     t.string  "manufacturer"
     t.integer "user_id"
+    t.integer "tennis_bag_id"
   end
 
   create_table "tennis_bags", force: :cascade do |t|
