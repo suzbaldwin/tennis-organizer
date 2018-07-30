@@ -63,6 +63,13 @@ post "/tennis_bags/:id" do
     end
   end
 
+  delete '/tennis_bags/:id/delete' do #delete action
+  @tennis_bag = TennisBag.find_by_id(params[:id])
+  @tennis_bag.delete
+  redirect to '/tennis_bags'
+end
+
+
 
 
 end
