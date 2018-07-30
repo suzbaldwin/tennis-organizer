@@ -26,3 +26,8 @@ Tennis Bag Name:  <%= @tennis_bag.name %><br />
   <a href="/tennis_bags/<%=@tennis_bag.id%>/edit">Edit</a>
   <br />
   <br />
+
+  <form action="/tennis_bags/<%= @tennis_bag.id %>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
+</form>
